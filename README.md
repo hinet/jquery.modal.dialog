@@ -9,7 +9,7 @@ jquery.modal.dialog是一个非常好用的轻量级的jQuery模态对话框插�
 * 代码压缩后仅5kb
 
 # 安装
-首先引用jQuery库( `http://cdn.bootcss.com/jquery/1.11.2/jquery.js `)和 `jquery.modal.dialog.js `插件脚本
+首先引用jQuery库(`http://cdn.bootcss.com/jquery/1.11.2/jquery.js`)和 `jquery.modal.dialog.js `插件脚本
 ```html
 <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.js" type="text/javascript" charset="utf-8"></script>
 <script src="jquery.modal.min.js" type="text/javascript" charset="utf-8"></script>
@@ -21,3 +21,5 @@ jquery.modal.dialog是一个非常好用的轻量级的jQuery模态对话框插�
 ```
 
 #使用
+#### 自动附加到链接
+最简单的方法是添加rel=“`dialog：open`“到链接和使用`href`属性指定打开模态窗口。
