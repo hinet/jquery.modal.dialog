@@ -22,4 +22,19 @@ jquery.modal.dialog是一个非常好用的轻量级的jQuery模态对话框插�
 
 #使用
 #### 自动附加到链接
-最简单的方法是添加rel=“`dialog：open`“到链接和使用`href`属性指定打开模态窗口。
+最简单的方法是添加rel="`dialog：open`"到链接和使用`href`属性指定打开模态窗口。
+打开一个现有的DOM元素的ID：
+```html
+<form id="login-form" class="dialog">
+  ...
+</form>
+
+<a href="#login-form" rel="dialog:open">Login</a>
+```
+
+使用AJAX加载远程URL:
+
+```html
+<a href="login.html" rel="dialog:open">Login</a>
+```
+更多使用方法请下载参考实例
