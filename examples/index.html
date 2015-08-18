@@ -1,0 +1,383 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.js" type="text/javascript" charset="utf-8"></script>
+
+  <script src="../jquery.modal.dialog.js" type="text/javascript" charset="utf-8"></script>
+  <link rel="stylesheet" href="../jquery.modal.dialog.css" type="text/css" media="screen" />
+
+  <script src="highlight/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript" charset="utf-8"> hljs.initHighlightingOnLoad(); </script>
+  <link rel="stylesheet" href="highlight/github.css" type="text/css" media="screen" />
+  <link href='http://fonts.useso.com/css?family=Roboto:300,700' rel='stylesheet' type='text/css'>
+  <style type="text/css" media="screen">
+    html { background: #ddd; }
+    body { font: normal 18px/1.6 'Open Sans', "Helvetica Neue", Arial, sans-serif; font-weight: 300; color: #777; padding: 2em 5%; width: 80%; max-width: 900px; margin: 0 auto; background: #fff; }
+    small { color: #aaa; }
+    h1,h2,h3,h4 { color: #444; font-weight: 700; font-size: 1.6em; letter-spacing: -1px; }
+    a { color: #0086B3; font-weight: 700; }
+    a:hover { color: #000; }
+    p code, li code {background:#ffffcc; color: #444; }
+    pre { font-size: 12px; line-height: 18px; }
+    pre code { overflow: scroll; padding: 1em; border-radius: 10px; }
+    hr { height: 10px; background: #eee; border: none; }
+    table {width:100%;border-collapse:collapse;}
+    td { border: 1px solid #eee; padding: 15px; }
+    td pre { margin: 0; }
+
+    /* Example 2 (login form) */
+    .login_form.dialog {
+      border-radius: 0;
+      line-height: 18px;
+      padding: 0;
+      font-family: "Lucida Grande", Verdana, sans-serif;
+    }
+
+    .login_form h3 {
+      margin: 0;
+      padding: 8px;
+      color: #444;
+      font-size: 14px;
+      border-bottom: 1px #ddd solid;
+      background:#DFDFDF;
+    }
+
+    .login_form.dialog p { padding: 20px 30px; border-bottom: 1px solid #ddd; margin: 0;
+      background:#FFF;
+      overflow: hidden;
+    }
+    .login_form.dialog p:last-child { border: none; }
+    .login_form.dialog p label { float: left; font-weight: bold; color: #333; font-size: 13px; width: 110px; line-height: 22px; }
+    .login_form.dialog p input[type="text"],
+    .login_form.dialog p input[type="password"] {
+      font: normal 12px/18px "Lucida Grande", Verdana;
+      padding: 3px;
+      border: 1px solid #ddd;
+      width: 200px;
+    }
+
+
+    .part {
+      display: none;
+      
+    }
+
+  </style>
+  <title>jQuery Modal Dialog</title>
+</head>
+<body>
+
+<h1>jQuery Modal Dialog</h1>
+<p><em>这是一个最好用的轻量级的模态对话框.</em> &ndash; <a href="https://github.com/hinet/jquery.modal.dialog">源码在 GitHub &raquo;</a></p>
+<ul>
+  <li>自动绑定使用HTML语义</li>
+  <li>没有图片&amp; 轻量级 <small>(文件只有1KB)</small></li>
+  <li>非常简单的CSS样式定义</li>
+  <li>使用自定义行为,参考<a href="http://api.jquery.com/category/events/">jQuery events</a></li>
+  <li>支持使用ESC键关闭对话框</li>
+  <li>支持大多数浏览器</li>
+</ul>
+
+
+
+
+
+<hr />
+
+<h2>Example 1: 打开 &amp; 关闭&lt;a&gt;连接</h2>
+<ol>
+  <li>在文档中嵌入模态对话框HTML</li>
+  <li>创建一个超链接，并设置 <code>rel="dialog:open"</code> 和 <code>href</code> 属性为模态对话框的ID.</li>
+</ol>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;/style&gt;
+  &lt;!-- Don't forget to include jQuery ;) --&gt;
+  &lt;script src=&quot;jquery.modal.dialog.js&quot; type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;!-- Modal HTML embedded directly into document --&gt;
+  &lt;div id=&quot;ex1&quot; style=&quot;display:none;&quot;&gt;
+    &lt;p&gt;Thanks for clicking.  That felt good.  &lt;a href=&quot;#&quot; rel=&quot;dialog:close&quot;&gt;Close&lt;/a&gt; or press ESC&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Link to open the modal dialog --&gt;
+  &lt;p&gt;&lt;a href=&quot;#ex1&quot; rel=&quot;dialog:open&quot;&gt;Open Modal Dialog&lt;/a&gt;&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<!-- Link to open the modal -->
+<p>Demo: <a href="#ex1" rel="dialog:open">Open Modal Dialog</a></p>
+
+<!-- Modal HTML embedded directly into document -->
+<div class="dialog" id="ex1" style="display:none;">
+  <p>Thanks for clicking.  That felt good.  <br />Click <a href="#" rel="dialog:close">close</a> and <button type="button" rel="dialog:close">close</button>, click the overlay, or press ESC</p>
+</div>
+
+
+<hr />
+
+<h2>Example 2: 登录表单和事件</h2>
+
+<p>This <a href="#ex2" rel="dialog:open">example</a> demonstrates how visually customizable the modal is.</p>
+
+<!-- Modal HTML embedded directly into document -->
+<form action="" class="login_form dialog" id="ex2" style="display:none;">
+  <h3>Please login to continue</h3>
+  <p><label>Username:</label><input type="text" /></p>
+  <p><label>Password:</label><input type="password" /></p>
+  <p><input type="submit" value="Login" /></p>
+</form>
+
+<hr />
+
+<h2>Example 3: 调整大小</h2>
+<p>This <a href="#ex3" rel="dialog:open">example</a> shows how <code>resize()</code> can be invoked on a modal.</p>
+<div id="ex3" class="dialog">
+  <p><a id="more" href="#more">More!</a></p>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+</div>
+
+<hr />
+
+<h2>Example 4: AJAX</h2>
+
+<p>This <a href="ajax.html" rel="dialog:open">first example</a> uses <code>rel="dialog:open"</code> to automatically load the page contents into a modal dialog via AJAX:</p>
+
+<pre><code>&lt;a href=&quot;ajax.html&quot; rel=&quot;dialog:open&quot;&gt;example&lt;/a&gt;</code></pre>
+
+<p>This <a href="ajax2.html" id="manual-ajax">second example</a> 演示如何手动加载Ajax页面为模态对话框. 注意Ajax响应必须被包裹在一个div类 <code>dialog</code>中:</p>
+
+<pre><code>&lt;!-- Normal link --&gt;<br/>&lt;a href=&quot;ajax.html&quot; id=&quot;manual-ajax&quot;&gt;second example&lt;/a&gt;</code></pre>
+
+<pre><code>//在AJAX回掉时打开模态窗口
+$('#manual-ajax').click(function(event) {
+  event.preventDefault();
+  $.get(this.href, function(html) {
+    $(html).appendTo('body').dialog();
+  });
+});</code></pre>
+
+<pre><code>&lt;!-- AJAX response must be wrapped in the modal's root class. --&gt;<br/>&lt;div class=&quot;dialog&quot;&gt;<br/>  &lt;p&gt;Second AJAX Example!&lt;/p&gt;<br/>&lt;/div&gt;</pre></code>
+
+<p>If you want more spinner styles, check out <a href="http://ajaxload.info/">ajaxload.info</a>.</p>
+
+<hr />
+
+<h2>Example 5: 禁用默认关闭窗口</h2>
+<p>
+  This <a href="#ex5">example</a> 演示如何禁用关闭模态的默认方法：
+
+<pre><code> $("#sticky").dialog({
+  escapeClose: false,
+  clickClose: false,
+  showClose: false
+});</code></pre>
+
+
+</p>
+<div id="ex5" class="modal">
+  <p>If you do this, be sure to provide the user with an alternate method of <a href="#" rel="dialog:close">closing the window.</a></p>
+</div>
+
+<hr />
+
+<h2>Example 6: 多模态窗口(嵌套)</h2>
+
+<p>This <a href="#ex6-1" rel="dialog:open">example</a> shows how only one modal can be open at a time. If you open a new modal while an existing modal is open, the existing modal is closed first. If you need to manage state (ie: for step by step wizards) you'll need to do that yourself.</p>
+
+<div class="dialog" id="ex6-1" style="display:none;">
+  <p>I'm the first modal. <a href="#ex6-2" rel="dialog:open">Open second modal...</a></p>
+</div>
+
+<div class="dialog" id="ex6-2" style="display:none;">
+  <p>I'm the second modal. <a href="#ex6-3" rel="dialog:open">Open third modal...</a></p>
+</div>
+
+<div class="dialog" id="ex6-3" style="display:none;">
+  <p>I'm the third modal. You get the idea.</p>
+</div>
+
+<hr />
+
+<h2>Example 7: 渐变过渡</h2>
+
+<p>This <a href="#ex7">example</a> 演示如何通过指定的方式来做一个简单的渐变 <code>fadeDuration</code> 选项.</p>
+
+<pre><code> $("#fade").dialog({
+  fadeDuration: 100
+});</code></pre>
+
+<p>You can also use <code>fadeDelay</code> to control the point during the overlay's fade in at which the modal fades in. For <a href="#ex8">example</a>, to fade in the modal when the overlay transition is 50% complete:</p>
+
+<pre><code> $("#fade").dialog({
+  fadeDuration: 1000,
+  fadeDelay: 0.50
+});</code></pre>
+
+<p>The default value is <code>1.0</code>, meaning the window transition begins once the overlay transition has finished. Values greater than <code>1.0</code> mean there is a delay between the completed overlay transition and the start of the window transition, <a href="#ex9">example</a>:</p>
+
+<pre><code> $("#fade").dialog({
+  fadeDuration: 1000,
+  fadeDelay: 1.75 // 覆盖结束后,将在750毫秒淡出..
+});</code></pre>
+
+<p><small>Tip: set <code>fadeDelay: 0</code> 覆盖和窗口褪色的时间.</small></p>
+
+<p>In the spirit of keeping this library small, fading is the only supported transition. When the modal is closed, both the overal and window transition out simultaneously.</p>
+
+<div id="ex7" class="dialog">
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+  proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+</div>
+
+<div id="ex8" class="dialog">
+  <p>This modal dialog starts fading in once the overlay is 50% faded in.</p>
+</div>
+
+<div id="ex9" class="dialog">
+  <p>This modal dialog starts fading in well after the overlay has finished transitioning.</p>
+</div>
+
+<hr/>
+
+<h2>Example 10: 为关闭按钮自定义CSS</h2>
+<p>
+  This <a href="#ex10">example</a> demonstrates how to add extra classes to the close button (for custom styles for the close button):
+</p>
+
+<pre><code> $("#custom-close").dialog({
+  closeClass: 'icon-remove',
+  closeText: '!'
+});</code></pre>
+<p>当然你可以自定义CSS</p>
+<pre><code>.dialog a.close-dialog[class*="icon-"] {
+  top: -10px;
+  right: -10px;
+  width: 20px;
+  height: 20px;
+  color: #fff;
+  line-height: 1.25;
+  text-align: center;
+  text-decoration: none;
+  text-indent: 0;
+  background: #900;
+  border: 2px solid #fff;
+  -webkit-border-radius:  26px;
+  -moz-border-radius:     26px;
+  -o-border-radius:       26px;
+  -ms-border-radius:      26px;
+  -moz-box-shadow:    1px 1px 5px rgba(0,0,0,0.5);
+  -webkit-box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+  box-shadow:         1px 1px 5px rgba(0,0,0,0.5);
+}</code></pre>
+
+<div id="ex10" class="modal">
+  <p>This modal has a fancy-shmancy close button.</p>
+</div>
+
+<style type="text/css">
+  .dialog a.close-dialog[class*="icon-"] {
+    top: -10px;
+    right: -10px;
+    width: 20px;
+    height: 20px;
+    color: #fff;
+    line-height: 1.25;
+    text-align: center;
+    text-decoration: none;
+    text-indent: 0;
+    background: #900;
+    border: 2px solid #fff;
+    -webkit-border-radius: 26px;
+    -moz-border-radius: 26px;
+    -o-border-radius: 26px;
+    -ms-border-radius: 26px;
+    -moz-box-shadow:    1px 1px 5px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+    box-shadow:         1px 1px 5px rgba(0,0,0,0.5);
+  }
+</style>
+
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+
+    function log_modal_event(event, modal) {
+      if(typeof console != 'undefined' && console.log) console.log("[event] " + event.type);
+    };
+
+    $(document).on($.dialog.BEFORE_BLOCK, log_modal_event);
+    $(document).on($.dialog.BLOCK, log_modal_event);
+    $(document).on($.dialog.BEFORE_OPEN, log_modal_event);
+    $(document).on($.dialog.OPEN, log_modal_event);
+    $(document).on($.dialog.BEFORE_CLOSE, log_modal_event);
+    $(document).on($.dialog.CLOSE, log_modal_event);
+    $(document).on($.dialog.AJAX_SEND, log_modal_event);
+    $(document).on($.dialog.AJAX_SUCCESS, log_modal_event);
+    $(document).on($.dialog.AJAX_COMPLETE, log_modal_event);
+
+    $('#more').click(function() {
+      $(this).parent().after($(this).parent().next().clone());
+      $.dialog.resize();
+      return false;
+    });
+
+    $('#manual-ajax').click(function(event) {
+      event.preventDefault();
+      $.get(this.href, function(html) {
+        $(html).appendTo('body').dialog();
+      });
+    });
+
+    $('a[href="#ex5"]').click(function(event) {
+      event.preventDefault();
+      $(this).dialog({
+        escapeClose: false,
+        clickClose: false,
+        showClose: false
+      });
+    });
+
+    $('a[href="#ex7"]').click(function(event) {
+      event.preventDefault();
+      $(this).dialog({
+        fadeDuration: 250
+      });
+    });
+
+    $('a[href="#ex8"]').click(function(event) {
+      event.preventDefault();
+      $(this).dialog({
+        fadeDuration: 1000,
+        fadeDelay: 0.50
+      });
+    });
+
+    $('a[href="#ex9"]').click(function(event) {
+      event.preventDefault();
+      $(this).dialog({
+        fadeDuration: 1000,
+        fadeDelay: 1.75
+      });
+    });
+
+    $('a[href="#ex10"]').click(function(event){
+      event.preventDefault();
+      $(this).dialog({
+        closeClass: 'icon-remove',
+        closeText: '!'
+      });
+    });
+
+  });
+</script>
+</body>
+</html>
